@@ -1,6 +1,5 @@
 (function() {
 
-    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
     console.log("Adding Observer");
 
     var target = document;
@@ -18,11 +17,13 @@
             firstTimeDone = true;
             var checkDomChangeTimes = setInterval(
                 function checkerDOM() {
-                    // counter++;
                     var lastTime = timeDomChanges[timeDomChanges.length - 1];
                     if ((Date.now() - lastTime) > 3000) {
                         console.log("DOM Stable");
                         firstTimeDone = false;
+                        // Can add the following method to stop listening.
+                        // with this the listener should be re-added as and when required.
+                        // observer.disconnect();
                         clearInterval(checkDomChangeTimes);
                     } else {
                         console.log("DOM Not Stable");
